@@ -38,7 +38,21 @@ function startQuiz () {
     countdownTimer = setInterval(clock, 1000);
     timerEl.textContent = time
 
-    getQuestions()
+    getQuestions() 
 }
 
 
+//pull choices and the question from array
+
+function getQuestions () {
+    var currentQuestion = questions[index]
+    //locate where question will go on html
+    //display by calling it out currentQuestion.question
+
+    //for loop through currentQuestion.choices
+    //logic of for loop: creat button element, creat var that rep currentQuestion.choices[i], set an attribute (method) to add value of the var that we just reated, text content to dosplay and append 
+}
+
+//create click event of choices container that will go to function, in function I need to creat condition on wrong answer. index++
+
+//compare if we have time left or do we have questions left, 
