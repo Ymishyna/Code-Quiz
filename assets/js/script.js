@@ -3,15 +3,34 @@ var startBtn = document.getElementById("startBtn");
 startBtn.addEventListener("click", startQuiz);
 var questions = [
     {
-        question: "What bracket is an array?",
-        choices: ["[]", "{}", "()", "none"],
-        answer: "[]"
+        question: "Inside which HTML element do we put the JavaScript?",
+        choices: ["<scripting>", "<javascript>", "<script>", "<js>"],
+        answer: "<script>"
     },
     {
         question: "What bracket is an array?",
         choices: ["[]", "{}", "()", "none"],
         answer: "[]"
+    },
+    {
+        question: "How do you write "Hello World" in an alert box?",
+        choices: ["alertBox("Hello World")", "msgBox("Hello World")", "msg("Hello World")", "alert("Hello World")"],
+        answer: "alert("Hello World")"
+    },
+    {
+        question: "How to write an IF statement in JavaScript?",
+        choices: ["if i==5 then", "if i=5", "if (i==5)", "if i=5 then"],
+        answer: "if (i==5)"
+    },
+    {
+        question: "How does a FOR loop start?",
+        choices: ["for (i = 0; i <= 5)", "for i = 1 to 5", "for (i = 0; i <= 5; i++)", "for (i <= 5; i++)"],
+        answer: "for (i = 0; i <= 5; i++)"
     }
+
+
+
+
 ];
 
 var index = 0;
