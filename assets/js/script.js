@@ -1,4 +1,10 @@
 var startBtn = document.getElementById("startBtn");
+var choice0Btn = document.getElementById("choices");
+var choice1Btn = document.getElementById("choices");
+var choice2Btn = document.getElementById("choices");
+var choice3Btn = document.getElementById("choices");
+
+
 
 startBtn.addEventListener("click", startQuiz);
 var questions = [
@@ -13,9 +19,9 @@ var questions = [
         answer: "[]"
     },
     {
-        question: "How do you write "Hello World" in an alert box?",
-        choices: ["alertBox("Hello World")", "msgBox("Hello World")", "msg("Hello World")", "alert("Hello World")"],
-        answer: "alert("Hello World")"
+        question: "How do you write 'Hello World' in an alert box?",
+        choices: ["alertBox('Hello World')", "msgBox('Hello World')", "msg('Hello World')", "alert('Hello World')"],
+        answer: "alert('Hello World')"
     },
     {
         question: "How to write an IF statement in JavaScript?",
@@ -27,14 +33,10 @@ var questions = [
         choices: ["for (i = 0; i <= 5)", "for i = 1 to 5", "for (i = 0; i <= 5; i++)", "for (i <= 5; i++)"],
         answer: "for (i = 0; i <= 5; i++)"
     }
-
-
-
-
 ];
 
 var index = 0;
-var time = 10 * questions.length;
+var time = 15 * questions.length;
 var timerEl = document.getElementById("timer");
 var questionsEl = document.getElementById("questions");
 var countdownTimer;
@@ -67,10 +69,22 @@ function getQuestions () {
     var currentQuestion = questions[index]
     //locate where question will go on html
     //display by calling it out currentQuestion.question
+    questionsEl.innerHTML=currentQuestion.question
+     //for loop through currentQuestion.choices
+    //logic of for loop: creat button element, creat var that rep currentQuestion.choices[i], set an attribute (method) to add value of the var that we just created, text content to dosplay and append 
+    for (let index = 0; index < currentQuestion.choices.length; index++) {
+    var choice = currentQuestion.choices[index];
+    var divChoice = document.getElementById("choices");
+    var newListBtn = document.createElement("button");
+    newListBtn.textContent = index + 1 + "." + choice;
+    newListBtn.setAttribute("class", "choice")
+    newListBtn.setAttribute("value", choice)
+    
+    // resultsHistoryList.appendChild(newListItem);  
 
-    //for loop through currentQuestion.choices
-    //logic of for loop: creat button element, creat var that rep currentQuestion.choices[i], set an attribute (method) to add value of the var that we just reated, text content to dosplay and append 
+    }
 }
+
 
 //create click event of choices container that will go to function, in function I need to creat condition on wrong answer. index++
 
