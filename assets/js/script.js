@@ -1,9 +1,5 @@
 var startBtn = document.getElementById("startBtn");
-var choice0Btn = document.getElementById("choices");
-var choice1Btn = document.getElementById("choices");
-var choice2Btn = document.getElementById("choices");
-var choice3Btn = document.getElementById("choices");
-
+// var resultsHistoryList = document.getElementById("ch")
 
 
 startBtn.addEventListener("click", startQuiz);
@@ -35,10 +31,12 @@ var questions = [
     }
 ];
 
-var index = 0;
+var indexQ = 0;
 var time = 15 * questions.length;
 var timerEl = document.getElementById("timer");
 var questionsEl = document.getElementById("questions");
+var questionEl = document.getElementById("question");
+var choicesEl = document.getElementById("choices");
 var countdownTimer;
 console.log(time)
 
@@ -66,26 +64,37 @@ function startQuiz () {
 //pull choices and the question from array
 
 function getQuestions () {
-    var currentQuestion = questions[index]
+    var currentQuestion = questions[indexQ]
     //locate where question will go on html
+    questionEl.textContent = currentQuestion.question
     //display by calling it out currentQuestion.question
-    questionsEl.innerHTML=currentQuestion.question
+    choicesEl.innerHTML = ""
      //for loop through currentQuestion.choices
     //logic of for loop: creat button element, creat var that rep currentQuestion.choices[i], set an attribute (method) to add value of the var that we just created, text content to dosplay and append 
-    for (let index = 0; index < currentQuestion.choices.length; index++) {
-    var choice = currentQuestion.choices[index];
-    var divChoice = document.getElementById("choices");
+    for (let i = 0; i < currentQuestion.choices.length; i++) {
+    var choice = currentQuestion.choices[i];
     var newListBtn = document.createElement("button");
-    newListBtn.textContent = index + 1 + "." + choice;
-    newListBtn.setAttribute("class", "choice")
-    newListBtn.setAttribute("value", choice)
-    
-    // resultsHistoryList.appendChild(newListItem);  
-
+    // newListBtn.textContent = index + 1 + "." + choice;
+    newListBtn.setAttribute("class", "choice");
+    newListBtn.setAttribute("value", choice);
+    newListBtn.textContent = i + 1 + "." + choice;
+    choicesEl.appendChild(newListBtn);   
     }
+}
+//identifying our buttons as clicks and than comparing user choice against the correct answer
+function compareAnswer (event) {
+    var btnAnswerEl = event.target;
+    if (!btnAnswerEl.matches(".choice")) {
+        console.log(btnAnswerEl)
+    return
+    }
+
+
 }
 
 
+
 //create click event of choices container that will go to function, in function I need to creat condition on wrong answer. index++
+choicesEl.addEventListener("click", compareAnswer)
 
 //compare if we have time left or do we have questions left, 
