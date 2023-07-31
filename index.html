@@ -16,25 +16,38 @@
     <div id="container">
         <div id="intro">
             <h1>Welcome to JavaScript Quiz</h1>
-            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your scoreTime by ten seconds!</p>
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
+                answers will penalize your scoreTime by ten seconds!</p>
             <button id="startBtn">Start Quiz</button>
         </div>
 
+
+
         <div id="questions" class="hide">
             <h2 id="question">Question goes here</h2>
-            <div id ="choices" class="choices">
+            <div id="choices" class="choices">
             </div>
-
-
-
-
         </div>
+
+
 
         <div id="allDone" class="hide">
             <h2>All done!</h2>
-            
-<!-- create button for input for initials  2 -->
+            <p id="finalScore">Your final score is </p>
+            <div>
+                <label for="">Enter initials:</label>
+                <input type="initials" type="text">
+                <button id="submit">Submit</button>
+            </div>
+        </div>
 
+
+        
+        <div id="highScores" class="hide">
+            <h2 id="high-scores-h2">High Scores</h2>
+            <ul id="high-scores-ul"></ul>
+            <button id="goBack">Go Back</button>
+            <button id="clear">Clear High Scores</button>
         </div>
 
     </div>

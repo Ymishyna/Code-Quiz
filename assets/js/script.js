@@ -38,6 +38,10 @@ var timerEl = document.getElementById("timer");
 var questionsEl = document.getElementById("questions");
 var questionEl = document.getElementById("question");
 var choicesEl = document.getElementById("choices");
+var allDoneEl = document.getElementById("allDone");
+var submitBtn = document.getElementById("submit");
+var initialsEl = document.getElementById("initials");
+var highScoreResultsEl = document.querySelector("highScores");
 var countdownTimer;
 console.log(time)
 
@@ -106,13 +110,44 @@ if (indexQ === questions.length || time <= 0) {
 
 //make function for quizDone. in this function we need to hide container questions and unhide allDone. stop timer  1
 
+function quizDone () {
+    var questionsEl = document.getElementById("questions");
+    questionsEl.setAttribute("class", "hide");
+    allDoneEl.removeAttribute("class");
+    clearInterval(countdownTimer);
+    timerEl.textContent = time
+}
 
 //create an eventListener for a button allDone 3
+
+submitBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    var initialsInput = initialsEl.value.trim();
+    if (initialsInput === "") {
+        alert("Please input your initials");
+    }
+    else {
+        getResultsHistory(initialsInput);
+    }
+})
+
+function getResultsHistory (initials) {
+    // var allDoneEl = document.getElementById("allDone");
+    // allDoneEl.setAttribute("class", "hide");
+    // highScoreResultsEl.removeAttribute("class");
+    allDoneEl.classList.add("hide");  // hide previous screen
+    highScoreResultsEl.classList.remove("hide"); // unhide results history screen
+    // var resultsHistoryListEl = document.getElementById("results-history-ul"); // ul element
+    var newListItem = document.createElement("li"); // create new list item
+    newListItem.textContent = `${initials} - ${finalScore}`; // write <initials - finalScore'
+    ulEl.appendChild(newListItem); // append the new list item
+}
+
 
 //create another finction to take a score and 
 
 
 
-//create click event of choices container that will go to function, in function I need to creat condition on wrong answer. index++
+
 choicesEl.addEventListener("click", compareAnswer)
 
