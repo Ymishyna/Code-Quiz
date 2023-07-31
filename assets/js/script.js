@@ -3,6 +3,7 @@ var startBtn = document.getElementById("startBtn");
 
 
 startBtn.addEventListener("click", startQuiz);
+
 var questions = [
     {
         question: "Inside which HTML element do we put the JavaScript?",
@@ -85,16 +86,33 @@ function getQuestions () {
 function compareAnswer (event) {
     var btnAnswerEl = event.target;
     if (!btnAnswerEl.matches(".choice")) {
-        console.log(btnAnswerEl)
     return
     }
-
-
+if (btnAnswerEl.value !== questions[indexQ].answer) {
+    time -= 5
+    console.log("Wrong!")
+    if (time < 0) {
+        time=0
+    }
+    timerEl.textContent = time
 }
+indexQ++
+if (indexQ === questions.length || time <= 0) {
+    quizDone()
+} else {
+    getQuestions()
+}
+}
+
+//make function for quizDone. in this function we need to hide container questions and unhide allDone. stop timer  1
+
+
+//create an eventListener for a button allDone 3
+
+//create another finction to take a score and 
 
 
 
 //create click event of choices container that will go to function, in function I need to creat condition on wrong answer. index++
 choicesEl.addEventListener("click", compareAnswer)
 
-//compare if we have time left or do we have questions left, 
