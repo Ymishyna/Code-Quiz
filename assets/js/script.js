@@ -41,7 +41,7 @@ var choicesEl = document.getElementById("choices");
 var allDoneEl = document.getElementById("allDone");
 var submitBtn = document.getElementById("submit");
 var initialsEl = document.getElementById("initials");
-var highScoreResultsEl = document.querySelector("highScores");
+var highScoreResultsEl = document.querySelector("#highScores");
 var countdownTimer;
 console.log(time)
 
@@ -112,35 +112,57 @@ if (indexQ === questions.length || time <= 0) {
 
 function quizDone () {
     var questionsEl = document.getElementById("questions");
+    var scoreEl = document.getElementById("score");
     questionsEl.setAttribute("class", "hide");
     allDoneEl.removeAttribute("class");
     clearInterval(countdownTimer);
     timerEl.textContent = time
+    scoreEl.textContent = time
 }
 
 //create an eventListener for a button allDone 3
 
-submitBtn.addEventListener("click", function (event) {
-    event.preventDefault();
+submitBtn.addEventListener("click", function () {
+    
     var initialsInput = initialsEl.value.trim();
     if (initialsInput === "") {
-        alert("Please input your initials");
+        alert ("Please type your initials");
+        return
     }
-    else {
-        getResultsHistory(initialsInput);
+    if (initialsInput !== "") {
+        var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+        var newScore = {
+            score: time,
+            initials: initialsInput,
+        }
+        highScores.push(newScore)
+        localStorage.setItem("highScores", JSON.stringify(highScores))
     }
+    // else {
+    //     getResultsHistory(initialsInput);
+    // }
+    getResultsHistory(highScores)
 })
 
-function getResultsHistory (initials) {
+function getResultsHistory (highScores) {
+    highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    
+
     // var allDoneEl = document.getElementById("allDone");
     // allDoneEl.setAttribute("class", "hide");
     // highScoreResultsEl.removeAttribute("class");
-    allDoneEl.classList.add("hide");  // hide previous screen
-    highScoreResultsEl.classList.remove("hide"); // unhide results history screen
-    // var resultsHistoryListEl = document.getElementById("results-history-ul"); // ul element
-    var newListItem = document.createElement("li"); // create new list item
-    newListItem.textContent = `${initials} - ${finalScore}`; // write <initials - finalScore'
-    ulEl.appendChild(newListItem); // append the new list item
+    allDoneEl.setAttribute("class", "hide");  // hide previous screen
+    highScoreResultsEl.removeAttribute("class"); // unhide results history screen
+    for (let i = 0; i < highScores.length; i++) {
+        var liTag = document.createElement("li")
+        liTag.textContent = highScores[i].initials + highScores[i].score;
+        var scoresUl = document.getElementById("high-scores-ul")
+        scoresUl.appendChild(liTag);
+    }
+    // // var resultsHistoryListEl = document.getElementById("results-history-ul"); // ul element
+    // var newListItem = document.createElement("li"); // create new list item
+    // newListItem.textContent = `${initials} - ${finalScore}`; // write <initials - finalScore'
+    // ulEl.appendChild(newListItem); // append the new list item
 }
 
 
