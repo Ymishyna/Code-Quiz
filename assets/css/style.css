@@ -6,11 +6,32 @@
     display: block;
 }
 
-.btn {
-    background: white;
+
+.score-time-bar {
+    margin: 10px;
+    
+    
+    
+}
+
+.score {
+    text-align: right;
+    padding-top: 30px;
+
+}
+
+.time-bar {
+    text-align: right;
+    padding-right: 30px;
+    
+
+}
+
+button {
+    background: rgb(134, 217, 247);
     color: #222;
     font-weight: 500;
-    width: 100%;
+    /* width: 5%; */
     border: 1px solid #222;
     padding: 10px;
     margin: 10px 0;
@@ -19,8 +40,30 @@
     cursor: pointer;
     transition: all 0.3s;
 }
-.btn:hover {
-    background-color: #222;
-    color: #fff
+
+h1 {
+    text-align: center;
+    padding-bottom: 10px;
 }
+
+h2 {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.choices {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+    border: solid black 1px;
+    
+
+}
+
+
+
+
 
