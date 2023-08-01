@@ -1,3 +1,14 @@
+/* Yana's cheetsheet:
+
+Intro screen: id="into" - introEl
+Questions screen: id="questions" - questionsEl
+All done screen: id="allDone" - allDoneEl
+Results screen: id="highScores" - highScoreResultsEl
+
+*/
+
+
+
 var startBtn = document.getElementById("startBtn");
 // var resultsHistoryList = document.getElementById("ch")
 
@@ -32,7 +43,7 @@ var questions = [
     }
 ];
 
-var indexQ = 0;
+var indexQ = 0; //we are setting question index to 0
 var time = 15 * questions.length;
 var timerEl = document.getElementById("timer");
 var questionsEl = document.getElementById("questions");
@@ -41,7 +52,13 @@ var choicesEl = document.getElementById("choices");
 var allDoneEl = document.getElementById("allDone");
 var submitBtn = document.getElementById("submit");
 var initialsEl = document.getElementById("initials");
-var highScoreResultsEl = document.querySelector("#highScores");
+var highScoreResultsEl = document.getElementById("highScores");
+var goBackBtn = document.getElementById("goBack");
+var introEl = document.getElementById("intro");
+var clearHighScoresBtn = document.getElementById("clear");
+var ulTag = document.getElementById("high-scores-ul");
+var selectedAnswer;
+var currentQuestion;
 var countdownTimer;
 console.log(time)
 
@@ -54,14 +71,28 @@ function clock() {
     }
 }
 
+displayIntro ();
+
+function displayIntro() {
+    indexQ = 0;  //reset question index to 0
+    selectedAnswer = "";
+    currentQuestion = "";
+    introEl.setAttribute("class", "unhide");
+    timerEl.textContent = "";
+}
+
+
+
+
+
 //purpose of this function is to hide 'intro', unhide 'questions' and start the cloock
 function startQuiz () {
-    var introEl = document.getElementById("intro");
-    introEl.setAttribute("class", "hide");
-    questionsEl.removeAttribute("class");
+    introEl.setAttribute("class", "hide"); //hide intro screen
+    console.log("Into sreen is hidden")
+    questionsEl.removeAttribute("class"); //unhide question screen
     countdownTimer = setInterval(clock, 1000);
-    timerEl.textContent = time
-
+    timerEl.textContent = time;
+    // debugger;
     getQuestions() 
 }
 
@@ -80,6 +111,7 @@ function getQuestions () {
     var choice = currentQuestion.choices[i];
     var newListBtn = document.createElement("button");
     // newListBtn.textContent = index + 1 + "." + choice;
+    // newListBtn.setAttribute("id", "i");
     newListBtn.setAttribute("class", "choice");
     newListBtn.setAttribute("value", choice);
     newListBtn.textContent = i + 1 + "." + choice;
@@ -88,8 +120,10 @@ function getQuestions () {
 }
 //identifying our buttons as clicks and than comparing user choice against the correct answer
 function compareAnswer (event) {
+    console.log(event);
     var btnAnswerEl = event.target;
     if (!btnAnswerEl.matches(".choice")) {
+        console.log("Correct!")
     return
     }
 if (btnAnswerEl.value !== questions[indexQ].answer) {
@@ -155,21 +189,33 @@ function getResultsHistory (highScores) {
     highScoreResultsEl.removeAttribute("class"); // unhide results history screen
     for (let i = 0; i < highScores.length; i++) {
         var liTag = document.createElement("li")
-        liTag.textContent = highScores[i].initials + highScores[i].score;
+        liTag.textContent = highScores[i].initials + " - " + highScores[i].score;
         var scoresUl = document.getElementById("high-scores-ul")
         scoresUl.appendChild(liTag);
     }
-    // // var resultsHistoryListEl = document.getElementById("results-history-ul"); // ul element
-    // var newListItem = document.createElement("li"); // create new list item
-    // newListItem.textContent = `${initials} - ${finalScore}`; // write <initials - finalScore'
-    // ulEl.appendChild(newListItem); // append the new list item
 }
 
 
-//create another finction to take a score and 
+// highScoreResultsEl.style.display = "none";
+
+goBackBtn.addEventListener("click", function(event)  { 
+    event.preventDefault(); // prevent post back
+    highScoreResultsEl.setAttribute("class", "hide"); //hiding history sore 
+    introEl.setAttribute("class", "unhide"); //unhiding intro
+    displayIntro();
+})
+
+clearHighScoresBtn.addEventListener("click", function(event)  { 
+    event.preventDefault(); 
+    while (ulTag.firstChild) { // loop for removing all li while there is a first child left
+        ulTag.removeChild(ulTag.firstChild); // remove ul child
+    }
+    localStorage.clear(); //clears local storage 
+})
 
 
+choicesEl.addEventListener("click", function(event)  { 
+    event.preventDefault(); 
+    compareAnswer(event);
 
-
-choicesEl.addEventListener("click", compareAnswer)
-
+})
