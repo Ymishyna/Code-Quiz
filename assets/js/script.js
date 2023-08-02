@@ -58,12 +58,12 @@ var questions = [
     }
 ];
 
-displayIntro(); 
+displayIntro();
 
 //resets everething to "groung zero"
 function displayIntro() {
     indexQ = 0;  //reset question index to 0
-    selectedAnswer = ""; 
+    selectedAnswer = "";
     currentQuestion = "";
     introEl.setAttribute("class", "unhide"); //unhide intro screen 
     timerEl.textContent = "";
@@ -116,7 +116,7 @@ function getQuestions() {
 //comparing user choice against the correct answer
 function compareAnswer() {
     if (currentQuestion.answer === selectedAnswer) {
-        correctWrongEl.textContent = "Correct! 🤩"; 
+        correctWrongEl.textContent = "Correct! 🤩";
     }
     else {
         correctWrongEl.textContent = "Wrong! 😭";
