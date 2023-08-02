@@ -7,50 +7,54 @@ Results screen: id="highScores" - highScoreResultsEl
 
 // Global vars
 var indexQ = 0; //we are setting question index to 0
-var time = 15 * questions.length;
-var selectedAnswer;
-var currentQuestion;
-var countdownTimer;
+var time = ""; //beginning time
+var initialTime = ""; //beginning time
+var selectedAnswer; //button that user  clicks
+var currentQuestion; //current question on the screen
+var countdownTimerInterval; //freqensy of clock update
 
 // Global HTML element vars
-var timerEl = document.getElementById("timer");
-var questionsEl = document.getElementById("questions");
-var questionEl = document.getElementById("question");
-var choicesEl = document.getElementById("choices");
-var allDoneEl = document.getElementById("allDone");
-var submitBtn = document.getElementById("submit");
-var initialsEl = document.getElementById("initials");
-var highScoreResultsEl = document.getElementById("highScores");
-var goBackBtn = document.getElementById("goBack");
-var introEl = document.getElementById("intro");
-var clearHighScoresBtn = document.getElementById("clear");
-var ulTag = document.getElementById("high-scores-ul");
-var startBtn = document.getElementById("startBtn");
+var timerEl = document.getElementById("timer"); //this represents clock on the right top corner
+var questionsEl = document.getElementById("questions"); //questions screen 
+var questionEl = document.getElementById("question"); //singular question
+var choicesEl = document.getElementById("choices"); //div container for 4 choices
+var allDoneEl = document.getElementById("allDone"); //all done screen 
+var submitBtn = document.getElementById("submit"); //
+var initialsEl = document.getElementById("initials"); //input element for initials
+var highScoreResultsEl = document.getElementById("highScores"); //results screen
+var goBackBtn = document.getElementById("goBack"); //go back button
+var introEl = document.getElementById("intro"); //intro screen
+var clearHighScoresBtn = document.getElementById("clear"); //clear score button 
+var ulTag = document.getElementById("high-scores-ul"); //list of all scores screen
+var startBtn = document.getElementById("startBtn"); //
+var correctWrongEl = document.getElementById("correctWrong");
+
+// var viewHighScores = document.getElementById("history");
 
 // Global question array
 var questions = [
     {
-        question: "Inside which HTML element do we put the JavaScript?",
+        question: "1. Inside which HTML element do we put the JavaScript?",
         choices: ["<scripting>", "<javascript>", "<script>", "<js>"],
         answer: "button2"
     },
     {
-        question: "What bracket is an array?",
+        question: "2. What bracket is an array?",
         choices: ["[]", "{}", "()", "none"],
         answer: "button0"
     },
     {
-        question: "How do you write 'Hello World' in an alert box?",
+        question: "3. How do you write 'Hello World' in an alert box?",
         choices: ["alertBox('Hello World')", "msgBox('Hello World')", "msg('Hello World')", "alert('Hello World')"],
-        answer: "button0"
+        answer: "button3"
     },
     {
-        question: "How to write an IF statement in JavaScript?",
+        question: "4. How to write an IF statement in JavaScript?",
         choices: ["if i==5 then", "if i=5", "if (i==5)", "if i=5 then"],
         answer: "button2"
     },
     {
-        question: "How does a FOR loop start?",
+        question: "5. How does a FOR loop start?",
         choices: ["for (i = 0; i <= 5)", "for i = 1 to 5", "for (i = 0; i <= 5; i++)", "for (i <= 5; i++)"],
         answer: "button2"
     }
@@ -58,12 +62,17 @@ var questions = [
 
 displayIntro(); 
 
+//resets everething to "groung zero"
 function displayIntro() {
     indexQ = 0;  //reset question index to 0
-    selectedAnswer = "";
+    selectedAnswer = ""; 
     currentQuestion = "";
-    introEl.setAttribute("class", "unhide");
+    introEl.setAttribute("class", "unhide"); //unhide intro screen 
     timerEl.textContent = "";
+    initialTime = 15 * questions.length;
+    time = initialTime;
+    correctWrongEl.textContent = "";
+
 }
 
 startBtn.addEventListener("click", startQuiz);
@@ -82,9 +91,8 @@ function startQuiz() {
     introEl.setAttribute("class", "hide"); //hide intro screen
     console.log("Into sreen is hidden")
     questionsEl.removeAttribute("class"); //unhide question screen
-    countdownTimer = setInterval(clock, 1000);
+    countdownTimerInterval = setInterval(clock, 1000);
     timerEl.textContent = time;
-    // debugger;
     getQuestions()
 }
 
@@ -106,29 +114,28 @@ function getQuestions() {
         newListBtn.setAttribute("id", `button${i}`);
         newListBtn.setAttribute("class", "choice");
         newListBtn.setAttribute("value", choice);
-        newListBtn.textContent = i + 1 + "." + choice;
+        newListBtn.textContent = i + 1 + "." + " " + choice;
         choicesEl.appendChild(newListBtn);
     }
 }
 //identifying our buttons as clicks and than comparing user choice against the correct answer
 function compareAnswer() {
-    var correctWrongEl = document.getElementById("correctWrong");
+    // var correctWrongEl = document.getElementById("correctWrong");
     // var btnAnswerEl = event.target;
-    console.log(`the current question.answer ${currentQuestion.answer} and the selected answer is ${selectedAnswer}`);
+    // console.log(`the current question.answer ${currentQuestion.answer} and the selected answer is ${selectedAnswer}`);
     if (currentQuestion.answer === selectedAnswer) {
-        correctWrongEl.textContent = "Correct!"; 
+        correctWrongEl.textContent = "Correct! 🤩"; 
     }
     else {
-        correctWrongEl.textContent = "Wrong!";
-        clearInterval(countdownTimer);
-        // if (btnAnswerEl.value !== questions[indexQ].answer) {
-        time -= 10
-        if (time < 0) {
-            time = 0
-        }
-        timerEl.textContent = time
+        correctWrongEl.textContent = "Wrong! 😭";
+        time = parseInt(timerEl.textContent) - 10; //converting into number and subtracting 10
+        // clearInterval(countdownTimerInterval); // freezes clock
+        clock(); // calling clock to update with 10 sec penalty
+
     }
+
     indexQ++
+
     if (indexQ === questions.length || time <= 0) {
         quizDone()
     } else {
@@ -144,7 +151,7 @@ function quizDone() {
     var scoreEl = document.getElementById("score");
     questionsEl.setAttribute("class", "hide");
     allDoneEl.removeAttribute("class");
-    clearInterval(countdownTimer);
+    clearInterval(countdownTimerInterval);
     timerEl.textContent = time
     scoreEl.textContent = time
 }
@@ -191,7 +198,10 @@ function getResultsHistory(highScores) {
 }
 
 
-// highScoreResultsEl.style.display = "none";
+// viewHighScores.addEventListener("click", function (event) {
+//     var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+//     getResultsHistory(highScores);
+// })
 
 goBackBtn.addEventListener("click", function (event) {
     event.preventDefault(); // prevent post back
@@ -211,32 +221,17 @@ clearHighScoresBtn.addEventListener("click", function (event) {
 
 choicesEl.addEventListener("click", function (event) {
     event.preventDefault();
-
-
     // Check if the clicked element is a button inside the container
     if (event.target.tagName === 'BUTTON') {
         // Get the id of the clicked button
         var buttonId = event.target.id;
         // Perform actions based on the clicked button
-        if (buttonId === 'button0') {
-            console.log('button0 was clicked');
-            selectedAnswer = "button0";
-            // Your code for Button 1 click here
-        } else if (buttonId === 'button1') {
-            console.log('Button1 clicked!');
-            selectedAnswer = "button1";
-            // Your code for Button 2 click here
-        } else if (buttonId === 'button2') {
-            console.log('Button2 clicked!');
-            selectedAnswer = "button2";
-            // Your code for Button 3 click here
-        } else if (buttonId === 'button3') {
-            console.log('Button3 clicked!');
-            selectedAnswer = "button3";
-        }
+
+        selectedAnswer = buttonId;
+        console.log("you clicked", selectedAnswer);
     }
     else {
-        alert('you must click on a button');
+        alert("You must choose your answer!");
     }
     compareAnswer(event);
 });
