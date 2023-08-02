@@ -5,53 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
+    <title>Code-Quiz</title>
 </head>
 
 <body>
-    <!-- Overall Container -->
-    <div class="main">
-        <!-- Top bar Container -->
-        <nav class="score-time-bar">
-            <div><a href="#">View Highscore</a></div>
-            <div class="time-bar">Time: <span id="timer">0</span></div>
-        </nav>
-        <div id="container">
-            <div id="intro">
-                <h1>✨ Welcome to JavaScript Quiz ✨</h1>
-                <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
-                    answers will penalize your score time by ten seconds!</p>
-                <button id="startBtn">Start Quiz</button>
-            </div>
+    <!-- Top bar Container (time, scores)-->
+    <nav class="score-time-bar">
+        <div><a href="#">View Highscore</a></div>
+        <div class="time-bar">Time: <span id="timer">0</span></div>
+    </nav>
 
+    <div id="container">
+        <!-- Intro Container -->
+        <div id="intro">
+            <h1>✨ Welcome to JavaScript Quiz ✨</h1>
+            <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
+                answers will penalize your score time by ten seconds!</p>
+            <button id="startBtn">Start Quiz</button>
+        </div>
 
+        <!-- Questions Container  -->
+        <div id="questions" class="hide">
+            <h2 id="question">Question goes here</h2>
+            <div id="choices" class="choices"></div>
+            <p id="correctWrong"></p>
+        </div>
 
-            <div id="questions" class="hide">
-                <h2 id="question">Question goes here</h2>
-                <div id="choices" class="choices"></div>
-                <p id="correctWrong"></p>
-            </div>
+        <!-- All Done Container -->
+        <div id="allDone" class="hide">
+            <h2>🎉 All done! 🎉</h2>
+            <p>Your final score is: <span id="score">0</span></p>
+            <p>Enter initials:
+                <input id="initials" type="text">
+                <button id="submit">Submit</button>
+            </p>
+        </div>
 
-
-
-            <div id="allDone" class="hide">
-                <h2>🎉 All done! 🎉</h2>
-                <p>Your final score is: <span id="score">0</span></p>
-                <p>Enter initials:
-                    <input id="initials" type="text">
-                    <button id="submit">Submit</button>
-                </p>
-            </div>
-
-
-
-            <div id="highScores" class="hide">
-                <h2 id="high-scores-h2">High Scores</h2>
-                <ul id="high-scores-ul"></ul>
-                <button id="goBack">Go Back</button>
-                <button id="clear">Clear High Scores</button>
-            </div>
-
+        <!-- Highscores Container  -->
+        <div id="highScores" class="hide">
+            <h2 id="high-scores-h2">High Scores</h2>
+            <ul id="high-scores-ul"></ul>
+            <button id="goBack">Go Back</button>
+            <button id="clear">Clear High Scores</button>
         </div>
     </div>
     <script src="./assets/js/script.js"></script>

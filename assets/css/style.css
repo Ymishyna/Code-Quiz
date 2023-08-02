@@ -6,32 +6,24 @@
     display: block;
 }
 
-
 .score-time-bar {
-    margin: 10px;
-    
-    
-    
+    margin: 10px;  
 }
 
 .score {
     text-align: right;
     padding-top: 30px;
-
 }
 
 .time-bar {
     text-align: right;
     padding-right: 30px;
-    
-
 }
 
 button {
     background: rgb(134, 217, 247);
     color: #222;
     font-weight: 500;
-    /* width: 5%; */
     border: 1px solid #222;
     padding: 10px;
     margin: 10px 0;
@@ -40,7 +32,6 @@ button {
     cursor: pointer;
     transition: all 0.3s;
 }
-
 
 h1 {
     text-align: center;
@@ -53,7 +44,6 @@ h2 {
 }
 
 p {
-    /* width: 50%; */
     text-align: center;
 }
 
@@ -64,9 +54,6 @@ p {
     width: 25%;
     height: 100%;
     margin: 0 auto;
-    /* border: solid black 1px; */
-    
-
 }
 
 
