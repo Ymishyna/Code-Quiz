@@ -36,6 +36,9 @@ The following animation demonstrates the application functionality:
 
 Deployed Site Link:
 
+https://ymishyna.github.io/Code-Quiz/
 
 GitHub Link:
+
+https://github.com/Ymishyna/Code-Quiz
 
